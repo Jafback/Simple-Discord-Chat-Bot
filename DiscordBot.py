@@ -50,8 +50,6 @@ def run_discord_bot():
         if isinstance(user_message, str):
             await send_message(message, user_message)
 
-    #Weather
-
     client.run(TOKEN)
 
 
