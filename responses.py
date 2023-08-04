@@ -1,14 +1,12 @@
 import random
 
-def check_for_weather_string(text):
-    splittext = text.lower().split()
-    isinside = False
-    if 'weather' in splittext:
-        isinside = True
-    if 'wetter' in splittext:
-        isinside = True
-    return isinside
-    
+def weather_check(text):
+    weather_in_text = False
+
+    if text.lower().find('weather') or text.lower().find('wetter'):
+        weather_in_text = True
+
+    return weather_in_text
 def handle_response(message) -> str:
     p_message = message.lower()
 
@@ -30,8 +28,5 @@ def handle_response(message) -> str:
     if p_message == "i'm sad":
         return "ouhhhh whish you all the best hehe"
 
-    if check_for_weather_string(p_message):
+    if weather_check(p_message):
         return 'Hmmm irgendwas mit Wetter schauste einfach hier: https://www.wetter.de'
-
-
-
