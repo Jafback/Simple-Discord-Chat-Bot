@@ -8,6 +8,7 @@ def check_for_weather_string(text):
     if 'wetter' in splittext:
         isinside = True
     return isinside
+    
 def handle_response(message) -> str:
     p_message = message.lower()
 
