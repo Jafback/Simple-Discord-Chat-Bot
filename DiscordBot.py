@@ -1,14 +1,11 @@
 import os
-
 import discord
 from dotenv import load_dotenv
-
 import responses
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILDID = os.getenv('DISCORD_GUILD')
-
 
 async def send_message(message, user_message):
     try:
@@ -16,6 +13,7 @@ async def send_message(message, user_message):
         await message.author.send(response)
     except Exception as e:
         print(e)
+        
 def run_discord_bot():
     intents = discord.Intents.default()
     intents.message_content = True
@@ -27,7 +25,7 @@ def run_discord_bot():
         for guild in client.guilds:
             if guild.id == GUILD:
                 break
-
+                
         print(
             f'{client.user} is connected to the following guild:\n'
             f'{guild.name}(id: {guild.id})'
@@ -51,6 +49,3 @@ def run_discord_bot():
             await send_message(message, user_message)
 
     client.run(TOKEN)
-
-
-
