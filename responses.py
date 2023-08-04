@@ -1,12 +1,14 @@
 import random
 
+
 def weather_check(text):
     weather_in_text = False
 
-    if text.lower().find('weather') or text.lower().find('wetter'):
+    if text.lower().find('weather') != -1 or text.lower().find('wetter') != -1:
         weather_in_text = True
 
     return weather_in_text
+
 def handle_response(message) -> str:
     p_message = message.lower()
 
@@ -28,5 +30,8 @@ def handle_response(message) -> str:
     if p_message == "i'm sad":
         return "ouhhhh whish you all the best hehe"
 
-    if weather_check(p_message):
+    if weather_check(p_message) == True:
         return 'Hmmm irgendwas mit Wetter schauste einfach hier: https://www.wetter.de'
+
+
+
