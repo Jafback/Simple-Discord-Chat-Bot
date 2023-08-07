@@ -11,7 +11,7 @@ def weather_check(text):
 
 def handle_response(message) -> str:
     p_message = message.lower()
-
+    print(p_message[0:9])
     if p_message == 'hello':
         return 'Hey there'
 
@@ -33,5 +33,16 @@ def handle_response(message) -> str:
     if weather_check(p_message) == True:
         return 'Hmmm irgendwas mit Wetter schauste einfach hier: https://www.wetter.de'
 
+    if p_message[0:9] == "reverse: ":
+        print(p_message[9:])
+        return reverse_word(p_message[9:])
 
 
+
+def reverse_word(word):
+    revword = ""
+    j = len(word) - 1
+    while j >= 0:
+        revword += word[j]
+        j -= 1
+    return revword

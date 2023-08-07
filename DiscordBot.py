@@ -1,23 +1,19 @@
 import os
+
 import discord
 from dotenv import load_dotenv
+
 import responses
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILDID = os.getenv('DISCORD_GUILD')
 
-async def send_message(message, user_message):
-    try:
-        response = responses.handle_response(user_message)
-        await message.author.send(response)
-    except Exception as e:
-        print(e)
-        
 def run_discord_bot():
-    intents = discord.Intents.default()
+    intents = discord.Intents(messages=True, guilds=True)
     intents.message_content = True
-    client = discord.Client(intents=discord.Intents.default()) #
+    intents.members = True
+    client = discord.Client(intents=intents)
     GUILD = client.get_guild(GUILDID)
     @client.event
     async def on_ready():
@@ -25,7 +21,7 @@ def run_discord_bot():
         for guild in client.guilds:
             if guild.id == GUILD:
                 break
-                
+
         print(
             f'{client.user} is connected to the following guild:\n'
             f'{guild.name}(id: {guild.id})'
@@ -45,7 +41,13 @@ def run_discord_bot():
 
         print(f"{username} said: '{message.content}' ({channel})")
 
-        if isinstance(user_message, str):
-            await send_message(message, user_message)
+        await send_message(message, user_message)
+
+    async def send_message(message, user_message):
+        try:
+                await message.channel.send(responses.handle_response(user_message))
+        except Exception as e:
+            print(e)
 
     client.run(TOKEN)
+
